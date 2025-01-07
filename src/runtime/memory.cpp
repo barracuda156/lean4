@@ -73,6 +73,13 @@ size_t get_current_rss() {
 #include <mach/mach.h>
 #endif
 
+#if MAC_OS_X_VERSION_MAX_ALLOWED < 1080
+#define MACH_TASK_BASIC_INFO_COUNT TASK_BASIC_INFO_COUNT
+#define mach_task_basic_info_data_t task_basic_info_data_t
+#define MACH_TASK_BASIC_INFO TASK_BASIC_INFO
+#define mach_task_basic_info task_basic_info
+#endif
+
 namespace lean {
 size_t get_peak_rss() {
     struct rusage rusage;
